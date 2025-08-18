@@ -6,7 +6,7 @@ services:
     container_name: postgres_db
     restart: unless-stopped
     env_file:
-      - .env
+      - ./api/.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./config/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
@@ -73,7 +73,7 @@ services:
       - ./front-end:/app
       - /app/node_modules
     env_file:
-      - .env
+      - ./front-end/.env
     ports:
       - "5173:5173"
 
