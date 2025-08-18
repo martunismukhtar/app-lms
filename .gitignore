@@ -1,0 +1,47 @@
+# ==========================
+# React (front-end)
+# ==========================
+/front-end/node_modules
+/front-end/build
+/front-end/dist
+/front-end/.env
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ==========================
+# Django (api)
+# ==========================
+/api/__pycache__/
+/api/*.pyc
+/api/*.pyo
+/api/*.pyd
+/api/.env
+/api/db.sqlite3
+/api/static
+/api/staticfiles
+
+# migrations cache
+*/migrations/__pycache__/
+
+# ==========================
+# Python general
+# ==========================
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.log
+
+# virtual environments
+venv/
+.env/
+
+# ==========================
+# System / Editor
+# ==========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
