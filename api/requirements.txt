@@ -10,6 +10,9 @@ attrs==25.3.0
 billiard==4.2.1
 cachetools==5.5.2
 camelot-py==1.0.0
+channels
+channels_rabbitmq
+uvicorn[standard]
 celery==5.5.3
 certifi==2025.4.26
 cffi==1.17.1
@@ -26,7 +29,6 @@ distro==1.9.0
 dj-rest-auth==7.0.1
 Django==5.2
 django-allauth==65.8.0
-django-ckeditor==6.7.2
 django-cors-headers==4.7.0
 django-js-asset==3.1.2
 djangorestframework==3.16.0

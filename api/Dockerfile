@@ -1,21 +1,24 @@
-# api/Dockerfile
 FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+ENV PIP_DEFAULT_TIMEOUT=100
 
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy project
+COPY requirements.txt .
+
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt -i https://pypi.org/simple
+
 COPY . .
 
-# Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-# Gunakan entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
-
-# Default command (bisa override di docker-compose)
-CMD ["gunicorn", "eduforge.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Gunakan uvicorn untuk ASGI
+CMD ["uvicorn", "api.asgi:application", "--host", "0.0.0.0", "--port", "8000", "--workers", "3"]

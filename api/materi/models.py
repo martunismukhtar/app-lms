@@ -1,7 +1,6 @@
 from django.db import models
 import uuid
 import os
-from ckeditor.fields import RichTextField
 
 def unique_file_path(instance, filename):
     # ext = filename.split('.')[-1]
