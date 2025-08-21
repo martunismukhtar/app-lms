@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from .views import GoogleLogin, LogoutView, LoginView, RegisterView
+from .views import GoogleLogin, LogoutView, LoginView, RegisterView, VerifyEmail
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -33,4 +33,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    path('verify-email/', VerifyEmail.as_view(), name='verify-email'),
+    path('resend-verification/', VerifyEmail.as_view(), name='resend-verification')
 ]

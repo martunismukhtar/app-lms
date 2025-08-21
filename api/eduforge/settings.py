@@ -131,13 +131,17 @@ ROOT_URLCONF = 'eduforge.urls'
 
 # CELERY_BROKER_URL = 'amqp://celeryuser:celerypassword@localhost//'  # Jika pakai user custom
 # atau jika tidak pakai auth:
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
+# CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
 
-CELERY_RESULT_BACKEND = 'rpc://'  # Atau gunakan DB jika perlu
+# CELERY_RESULT_BACKEND = 'rpc://'  # Atau gunakan DB jika perlu
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Jakarta'
+
+
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "amqp://appuser:apppass@rabbitmq:5672//")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "rpc://")
 
 
 TEMPLATES = [
@@ -257,3 +261,13 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = config("EMAIL_BACKEND")
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_PORT = int(config("EMAIL_PORT"))
+EMAIL_USE_TLS = config("EMAIL_USE_TLS") == "True"
+
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+
+APP_URL=config("APP_URL")

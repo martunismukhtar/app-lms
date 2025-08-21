@@ -8,7 +8,8 @@ services:
       - ./api/.env
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./config/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+      # Lebih aman mount pg_hba.conf ke /etc/postgresql/
+      # - ./config/pg_hba.conf:/etc/postgresql/pg_hba.conf
     ports:
       - "5433:5432"
     healthcheck:
@@ -21,13 +22,12 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq_broker_lms
     restart: unless-stopped
-    # WAJIB: jangan pakai user 'guest' (dibatasi hanya localhost).
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-appuser}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-apppass}
     ports:
-      - "5673:5672"    # AMQP (broker Celery & Channels)
-      - "15673:15672"  # RabbitMQ Management UI
+      - "5673:5672"    # host:container
+      - "15673:15672"  # management UI
     healthcheck:
       test: ["CMD-SHELL", "rabbitmq-diagnostics check_running"]
       interval: 10s
@@ -37,8 +37,6 @@ services:
   backend:
     build: ./api
     container_name: django_backend_lms
-    # Pakai ASGI server (Uvicorn) untuk WebSocket/real-time
-    # command: uvicorn eduforge.asgi:application --host 0.0.0.0 --port 8000 --workers 3
     command: python manage.py runserver 0.0.0.0:8000
     restart: unless-stopped
     volumes:
@@ -71,7 +69,7 @@ services:
   celery-beat:
     build: ./api
     container_name: celery_beat
-    command: celery -A eduforge beat -l info
+    command: celery -A eduforge beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     restart: unless-stopped
     volumes:
       - ./api:/app

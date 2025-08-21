@@ -38,6 +38,7 @@ const UseRegister = () => {
       });
 
       const data = await res.json();
+      console.log(res);
       if (res.ok) {
         saveSessions({
           access: data.access,
@@ -48,8 +49,7 @@ const UseRegister = () => {
         });
         showToast(`Data berhasil disimpan`, "success");
       } else {
-        console.error("Login error:", res);
-        showToast(res?.error || "Anda tidak terdafar", "error");
+        showToast(data?.message || "Anda tidak terdafar", "error");
       }
     } catch (error) {
       showToast(error?.message || "Terjadi kesalahan jaringan.", "error");

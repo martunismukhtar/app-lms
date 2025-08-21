@@ -1,4 +1,3 @@
-
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
@@ -55,6 +54,7 @@ import EnrollTeacher from "./pages/mapel/EnrollTeacher.jsx";
 import SiswaPerkelas from "./pages/siswa/SiswaPerkelas.jsx";
 import ListMateri from "./pages/materi/ListMateri.jsx";
 import AddMateri from "./pages/materi/Add.jsx";
+import VerifyEmail from "./pages/auth/Verify.jsx";
 
 const queryClient = new QueryClient();
 
@@ -63,6 +63,9 @@ const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/register", element: <RegisterPage /> },
   { path: "/forgot-password", element: <ForgotPasswordPage /> },
+  
+  //verify email
+  { path: "auth/verify", element: <VerifyEmail /> },
   // ✅ Protected routes
   {
     path: "/",
@@ -76,7 +79,10 @@ const router = createBrowserRouter([
       // { path: "tanya-ai", element: <TanyaAI /> },
       { path: "materi", element: <Materi /> },
       { path: "materi/:mapel_id/create", element: <AddMateri /> },
-      { path: "materi/:mapel_id/semua-materi-berdasarkan-mapel", element: <ListMateri /> },
+      {
+        path: "materi/:mapel_id/semua-materi-berdasarkan-mapel",
+        element: <ListMateri />,
+      },
       { path: "materi/:mapel_id/:id/edit", element: <EditMateriForm /> },
 
       //soal
@@ -96,14 +102,17 @@ const router = createBrowserRouter([
       { path: "soal/edit/:id", element: <EditSoal /> },
 
       //mapel
-      { path:"mapel/", element: <Mapel />},
-      { path:"mapel/create", element: <TambahMapel /> },
+      { path: "mapel/", element: <Mapel /> },
+      { path: "mapel/create", element: <TambahMapel /> },
       { path: "mapel/:id/edit", element: <EditMapel /> },
       { path: "mapel/:id/enroll", element: <EnrollTeacher /> },
 
       //materi siswa
       { path: "materi-siswa", element: <MateriSiswa /> },
-      { path: "materi-siswa/detail/:pel_id/:kelas_id", element: <DaftarMateri /> },
+      {
+        path: "materi-siswa/detail/:pel_id/:kelas_id",
+        element: <DaftarMateri />,
+      },
       { path: "materi-siswa/:id/tanya-ai", element: <TanyaAI /> },
 
       { path: "buat-soal-manual/create", element: <BuatSoalManualForm /> },
@@ -111,22 +120,24 @@ const router = createBrowserRouter([
       { path: "dashboard-siswa", element: <DashboardSiswa /> },
 
       //profile
-      { path:"profile/", element: <Profile />},
+      { path: "profile/", element: <Profile /> },
 
       //guru
-      { path:"guru/", element: <Guru />},
-      { path:"guru/create", element: <TambahGuru /> },
+      { path: "guru/", element: <Guru /> },
+      { path: "guru/create", element: <TambahGuru /> },
       { path: "guru/:id/edit", element: <EditGuru /> },
 
       //siswa
-      { path:"siswa/", element: <Siswa />},
-      { path:"siswa/create", element: <FormInputSiswa /> },
-      { path:"siswa/:id/kelas", element: <SiswaPerkelas /> },
-      
+      { path: "siswa/", element: <Siswa /> },
+      { path: "siswa/create", element: <FormInputSiswa /> },
+      { path: "siswa/:id/kelas", element: <SiswaPerkelas /> },
+
       //hak akses
-      { path:"hak-akses/", element: <Permission />},
-      { path:"hak-akses/permission/:id/tambah-hak-akses", element: <HakAkses />},
-      
+      { path: "hak-akses/", element: <Permission /> },
+      {
+        path: "hak-akses/permission/:id/tambah-hak-akses",
+        element: <HakAkses />,
+      },
     ],
   },
 
@@ -136,14 +147,13 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <>
     <ToastProvider>
-    <UserProvider>
-      <QueryClientProvider client={queryClient}>
-        <ToastProvider />
-        {/* <ToastContainer position="top-right" autoClose={3000} /> */}
-        <RouterProvider router={router} />
-        
-      </QueryClientProvider>
-    </UserProvider>
+      <UserProvider>
+        <QueryClientProvider client={queryClient}>
+          <ToastProvider />
+          {/* <ToastContainer position="top-right" autoClose={3000} /> */}
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </UserProvider>
     </ToastProvider>
   </>
 );

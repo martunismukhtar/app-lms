@@ -137,18 +137,14 @@ export default function RegisterPage() {
 
             {/* Divider */}
             <div className="my-6 flex items-center">
-              <hr className="flex-grow border-gray-300" />
-              <span className="px-3 text-gray-500 text-sm">atau</span>
+              <hr className="flex-grow border-gray-300" />              
               <hr className="flex-grow border-gray-300" />
             </div>
-
-            {/* Social Login - Google */}
-            {!loading && <GoogleLoginButton />}
 
             {/* Registration Link */}
             <div className="mt-8 text-center">
               <p className="text-gray-600">
-                Belum punya akun?{" "}
+                Sudah punya akun?{" "}
                 <Link
                   to="/login"
                   className="font-medium text-blue-600 hover:text-blue-500 transition-colors"

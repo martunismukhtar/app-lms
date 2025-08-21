@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import User
-from kelas_siswa.serializers import KelasSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     kelas = serializers.SerializerMethodField()

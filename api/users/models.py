@@ -53,21 +53,8 @@ class User(AbstractUser):
         blank=True,
         null=True
     )
+    verified_at = models.DateTimeField(null=True, blank=True)
     
-    # user_mapel = models.ManyToManyField(
-    #     'mapel.Mapel',
-    #     through='UserMapel',
-    #     through_fields=('user', 'mapel'),     
-    #     related_name="user_mapel"           
-    # )
-
-    # user_kelas = models.ManyToManyField(
-    #     'kelas_siswa.KelasSiswa',
-    #     through='UserKelas',
-    #     through_fields=('user', 'kelas'),     
-    #     related_name="user_kelas"           
-    # )    
-
     def __str__(self):
         return self.username
     

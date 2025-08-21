@@ -40,10 +40,7 @@ const UseLogin = () => {
           permissions: data.permissions,
           user: data.user,
         });
-        navigate(data.organization ? "/dashboard" : "/organisasi");
-        // setTimeout(() => {
-        //   navigate(data.organization ? "/dashboard" : "/organisasi");
-        // }, 3000);
+        navigate(data.organization ? "/dashboard" : "/organisasi");      
       } else {        
         showToast(res?.error || "Anda tidak terdafar", "error");
       }
