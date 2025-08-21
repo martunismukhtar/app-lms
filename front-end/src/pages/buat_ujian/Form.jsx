@@ -1,7 +1,7 @@
-import Divider from "../../components/Divider";
+import BtnKembali from "../../components/Button/BtnKembali";
+import SubmitButton from "../../components/Button/SubmitButton";
 import ErrorMessage from "../../components/ErrorMessage";
 import Input from "../../components/Input/Input";
-import LoadingButton from "../../components/LoadingButton";
 import Select from "../../components/SelectBox/Select";
 import { useKelasData, useMapelData } from "../../data/Index";
 import useForm from "./useForm";
@@ -42,7 +42,7 @@ const FormBuatUjian = ({ id, data }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">      
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="w-full">
           <label className="block font-medium mb-1">Judul Ujian</label>
@@ -177,9 +177,9 @@ const FormBuatUjian = ({ id, data }) => {
           />
         </div>
       </div>
-      <div className="flex flex-col items-end mt-6 space-y-4">
-        <Divider />
-        <LoadingButton isLoading={isLoading} />
+      <div className="flex justify-end border-t border-gray-200 pt-4">
+        <BtnKembali />
+        <SubmitButton isLoading={isLoading} />
       </div>
     </form>
   );

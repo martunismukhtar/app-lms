@@ -41,7 +41,8 @@ const useMateriForm = (id) => {
         } 
       };
       fetchMateri();
-    }
+    }    
+
   }, [id, showToast]);
 
   // Clear specific field error
@@ -159,10 +160,11 @@ const useMateriForm = (id) => {
     async (data) => {
       setIsLoading(true);
       setError({});
-
+      
       try {
         // Client-side validation
         const validationErrors = validateForm(data);
+        console.log(validationErrors);
         if (Object.keys(validationErrors).length > 0) {
           setError(validationErrors);
           return;
@@ -208,11 +210,8 @@ const useMateriForm = (id) => {
 
     // Actions
     handleInputChange,
-    handleSubmit,
-    resetForm,
-
-    // Utilities
-    clearFieldError,
+    handleSubmit,    
+    setFormData
   };
 };
 

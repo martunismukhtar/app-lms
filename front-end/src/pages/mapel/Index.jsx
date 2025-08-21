@@ -1,48 +1,20 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import PrivateLayout from "../../layouts/private/Index";
 import { useDataMapel } from "./useData";
-import LoadingComponent from "../../components/loading/Index";
 import ErrorComponent from "../../components/error/Index";
 import ViewMapel from "./View";
-import useDeleteMapel from "./useDelete";
-import Konfirmasi from "../../components/Konfirmasi/Index";
 import { UserContext } from "../../context/LayoutContext";
+import { Link } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 const Mapel = () => {
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-    isError,
-    error,
-    refetch,
-  } = useDataMapel();
-
-  const {
-    actions,
-    isModalOpen,    
-    handleDelete,
-    setIsModalOpen,
-  } = useDeleteMapel();
+  const { data, isLoading, isError, error, refetch } = useDataMapel();
   const { setActiveMenu } = useContext(UserContext);
 
-  
   useEffect(() => {
     document.title = "Mapel";
     setActiveMenu("mapel");
   }, [setActiveMenu]);
-
-  const handleLoadMore = useCallback(() => {
-    if (hasNextPage && !isFetchingNextPage) {
-      fetchNextPage();
-    }
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  if (isLoading) {
-    return <LoadingComponent />;
-  }
 
   if (isError) {
     return <ErrorComponent error={error} handleRetry={refetch} />;
@@ -52,9 +24,9 @@ const Mapel = () => {
     <PrivateLayout>
       <div className="overflow-x-auto bg-white rounded-lg shadow p-6">
         <div className="p-4 border-b border-gray-100 flex justify-between items-center">
-          <h2 className="text-lg font-semibold text-gray-800">Daftar Mapel</h2>
-          <a
-            href="mapel/create"
+          <h2 className="text-lg font-semibold text-gray-800">Daftar Mata Pelajaran</h2>
+          <Link
+            to="create"
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-colors duration-200 flex items-center gap-2"
           >
             <svg
@@ -71,22 +43,16 @@ const Mapel = () => {
               />
             </svg>
             Tambah
-          </a>
+          </Link>
         </div>
-        <hr />        
-        <ViewMapel
-          data={data}
-          actions={actions}
-          loadMore={handleLoadMore}
-          hasMore={hasNextPage}
-          isLoadingMore={isFetchingNextPage}
-        />
-        <Konfirmasi
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          onDelete={handleDelete}
-          message={`Yakin ingin menghapus mapel ?`}
-        />
+        {isLoading && <div className="flex justify-center"><Loader2 className="animate-spin" /></div>}
+        {!isLoading && !isError && data && data.length === 0 && (
+          <div>Tidak ada data</div>
+        )}
+        {!isLoading && !isError && data && data.length > 0 && (
+          <ViewMapel data={data} />
+        )}
+
       </div>
     </PrivateLayout>
   );

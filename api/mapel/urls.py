@@ -26,5 +26,8 @@ urlpatterns = [
     path('daftar-guru-mengajar/<uuid:id_mapel>', views.GuruMengajarMapel.as_view(), name='daftar-guru-mengajar'),
     path('guru/enroll', views.EnrollGuruMapel.as_view(), name='enroll-guru-mapel'),
     path('guru/unenroll', views.UnenrollGuruMapel.as_view(), name='un-enroll-guru-mapel'),
-    
+    path('materi/', views.MapelMateri.as_view(), name='mapel-materi'),
+
+    # MapelById
+    path('by-id/<uuid:id>', views.MapelById.as_view(), name='mapel-by-id'),
 ]

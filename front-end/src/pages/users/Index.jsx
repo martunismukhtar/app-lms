@@ -123,9 +123,8 @@ const Users = () => {
             Tambah Siswa
           </Link>
         </div>
-        <hr />
+        
         <div className="p-4 space-y-6">
-          {/* <FilterUjian onFilterChange={handleFilter} refetch={refetch} /> */}
           <div className="bg-white rounded-xl border border-gray-200 shadow overflow-hidden">
             <Tabel 
               data={transformedData} 
@@ -147,19 +146,7 @@ const Users = () => {
           message={`Yakin ingin menghapus data ujian ?`}
         />
       </div>
-      {/* <UserView
-        data={transformedData}
-        actions={actions}
-        loadMore={handleLoadMore}
-        hasMore={hasNextPage}
-        isLoadingMore={isFetchingNextPage}
-      />
-      <Konfirmasi
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onDelete={handleDelete}
-        message={`Yakin ingin menghapus pengguna ?`}
-      /> */}
+      
     </PrivateLayout>
   );
 };

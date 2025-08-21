@@ -262,7 +262,7 @@ export default function ManualQuestionTab(props) {
           </div>
         </div>
         {/* Footer */}
-        <div className="bg-gray-50 px-6 py-4 flex justify-end">
+        <div className="bg-gray-50 px-6 py-4 flex justify-end">          
           <LoadingButtonClik
             onClick={handleSubmit}
             disabled={fields.length === 0}

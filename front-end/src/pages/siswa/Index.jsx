@@ -62,10 +62,15 @@ const Siswa = () => {
         
         <div className="p-4 space-y-6">          
           <div className="bg-white rounded-xl border border-gray-200 shadow overflow-hidden">
+            {kelasList.length === 0 && (
+                <div className="p-6 flex justify-center items-center">
+                  <p className="text-gray-600">Tidak ada data</p>
+                </div>
+              )}
             <div className="p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {kelasList.map((kelas) => (
                 <KelasCard key={kelas.id} kelas={kelas} />
-              ))}
+              ))}              
             </div>
 
             {isLoading && (

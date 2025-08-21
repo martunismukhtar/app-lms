@@ -1,16 +1,17 @@
 import PrivateLayout from "../../layouts/private/Index";
 import KelasView from "./View";
-import LoadingComponent from "../../components/loading/Index";
 import ErrorComponent from "../../components/error/Index";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/LayoutContext";
 import Konfirmasi from "../../components/Konfirmasi/Index";
-import { useKelas } from "./useData";
+
 import useDeleteKelas from "./useDelete";
 import { Link } from "react-router-dom";
+import { useKelasData } from "../../data/Index";
+import LoadingTable from "../../components/loading/LoadingTable";
 
 const Kelas = () => {
-  const { data, isLoading, isError, error, refetch } = useKelas();
+  const { data, isLoading, isError, error, refetch } = useKelasData();
   const { setActiveMenu } = useContext(UserContext);
 
   const { actions, isModalOpen, handleDelete, setIsModalOpen } =
@@ -21,17 +22,15 @@ const Kelas = () => {
     setActiveMenu("kelas");
   }, [setActiveMenu]);
 
-  if (isLoading) {
-    return <LoadingComponent />;
-  }
-
   if (isError) {
     return <ErrorComponent error={error} handleRetry={refetch} />;
   }
 
   const new_data = data?.map((item) => ({
-    ...item,
-    wali_kelas: item.nama_wali_kelas,
+    'id': item.id,
+    'Kelas': item.name,
+    'wali kelas': item.nama_wali_kelas,
+    'jumlah siswa':item.jumlah_siswa
   }));
 
   return (
@@ -59,8 +58,15 @@ const Kelas = () => {
             Tambah
           </Link>
         </div>
-        <hr />
-        <KelasView data={new_data} actions={actions} />
+        {isLoading && <LoadingTable />}
+        {!isLoading && new_data.length === 0 && (
+          <div className="p-4 border-b border-gray-100 flex justify-center items-center">
+            <h2 className="text-lg text-gray-800">
+              Tidak ada data
+            </h2>
+          </div>
+        )}
+        {!isLoading && new_data.length > 0 && <KelasView data={new_data} actions={actions} />}
         <Konfirmasi
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

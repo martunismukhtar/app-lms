@@ -7,6 +7,14 @@ const fetchMapel = async () => {
   });
   return res;
 };
+
+const fetchMapelMateri = async () => {
+  const res = await fetchWithAuth(`mapel/materi/`, {
+    method: "GET",
+  });
+  return res;
+};
+
 const fetchMapelId = async ({ queryKey }) => {
   const [_key, id] = queryKey;
   const res = await fetchWithAuth(`mapel/` + id, {
@@ -27,6 +35,21 @@ const useDataMapel = () => {
   return useQuery({
     queryKey: ["mapel"],
     queryFn: fetchMapel,
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 5 * 60 * 1000,
+    refetchInterval: 5 * 60 * 1000,
+    refetchIntervalInBackground: true,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+  });
+};
+
+const useDataMapelMateri = () => {
+  return useQuery({
+    queryKey: ["mapel-materi"],
+    queryFn: fetchMapelMateri,
     refetchOnWindowFocus: false,
     keepPreviousData: true,
     staleTime: 5 * 60 * 1000,
@@ -108,5 +131,6 @@ export {
   hapusMapel, 
   useMengajarMapelId, 
   enrollGuru, 
-  unEnrollGuru 
+  unEnrollGuru,
+  useDataMapelMateri
 };

@@ -12,13 +12,24 @@ const LoadingButtonClik = ({ isLoading, onClick = () => {}, children }) => {
   }
 
   return (
-    <Button
+    <button
+      type="submit"
       onClick={onClick}
-      className="max-w-2xs flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       disabled={isLoading}
+      className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-md bg-neutral-950 px-6 font-medium text-neutral-200 cursor-pointer"
     >
       {children || MESSAGES.SAVE}
-    </Button>
+      <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-100%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(100%)]">
+        <div className="relative h-full w-8 bg-white/20"></div>
+      </div>
+    </button>
+    // <Button
+    //   onClick={onClick}
+    //   className="max-w-2xs flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+    //   disabled={isLoading}
+    // >
+    //   {children || MESSAGES.SAVE}
+    // </Button>
   );
 };
 

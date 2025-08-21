@@ -4,7 +4,9 @@ import { saveSessions } from "../../utils/permission";
 import { UserContext } from "../../context/LayoutContext";
 import useToast from "../../components/Toast/useToast";
 
-export default function GoogleLoginButton() {
+export default function GoogleLoginButton({
+  className
+}) {
   const clientId = import.meta.env.VITE_GOOGLE_CLIENT_Id;
   const apiUrl = import.meta.env.VITE_API;
   const { setDisabledButton } = useContext(UserContext);
@@ -22,13 +24,9 @@ export default function GoogleLoginButton() {
         user: data.user,
       });
 
-      showToast(`Welcome ${data.user?.email || "user"}`, "success");
-
-      setTimeout(() => {
-        navigate(data.organization ? "/dashboard" : "/organisasi");
-      }, 1000);
+      navigate(data.organization ? "/dashboard" : "/organisasi");
     },
-    [navigate, showToast]
+    [navigate]
   );
 
   const handleCredentialResponse = useCallback(
@@ -88,7 +86,7 @@ export default function GoogleLoginButton() {
 
   return (
     <>
-      <div id="google-login-button"></div>
+      <div id="google-login-button" className={`${className}`}></div>
     </>
   );
 }

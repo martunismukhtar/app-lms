@@ -62,7 +62,7 @@ export default function LandingPage() {
               <Brain className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900">
-              Masuk ke EduAI
+              Masuk ke EduForge
             </h1>
             <p className="text-gray-600 mt-2">Selamat datang kembali! Silakan masuk ke akun Anda</p>
           </div>
@@ -150,7 +150,7 @@ export default function LandingPage() {
               <Brain className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900">
-              Daftar EduAI
+              Daftar EduForge
             </h1>
             <p className="text-gray-600 mt-2">Bergabunglah dengan revolusi pembelajaran AI</p>
           </div>
@@ -323,7 +323,7 @@ export default function LandingPage() {
                 <Brain className="w-6 h-6 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">
-                EduAI
+                EduForge
               </span>
             </div>
             
@@ -526,7 +526,7 @@ export default function LandingPage() {
               {
                 name: "Dr. Sarah Wijaya",
                 role: "Kepala Sekolah SMAN 1 Jakarta",
-                content: "EduAI mengubah cara kami mengajar. Pembuatan soal yang dulunya memakan waktu berjam-jam, kini hanya butuh beberapa menit!",
+                content: "EduForge mengubah cara kami mengajar. Pembuatan soal yang dulunya memakan waktu berjam-jam, kini hanya butuh beberapa menit!",
                 rating: 5
               },
               {
@@ -588,7 +588,7 @@ export default function LandingPage() {
                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <Brain className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-lg font-bold text-gray-900">EduAI</span>
+                <span className="text-lg font-bold text-gray-900">EduForge</span>
               </div>
               <p className="text-gray-600">
                 Platform LMS cerdas yang mengintegrasikan AI untuk pembelajaran yang lebih efektif.
@@ -620,7 +620,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-gray-200 mt-12 pt-8 text-center text-gray-500">
-            <p>&copy; 2025 EduAI. Semua hak dilindungi.</p>
+            <p>&copy; 2025 EduForge. Semua hak dilindungi.</p>
           </div>
         </div>
       </footer>

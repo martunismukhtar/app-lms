@@ -1,13 +1,10 @@
 from rest_framework import serializers
 from .models import KelasSiswa
 
-class KelasSerializer(serializers.ModelSerializer):
-    # nama_wali_kelas = serializers.CharField(source='wali_kelas.nama', read_only=True)
-    nama_wali_kelas = serializers.CharField(read_only=True)
-    jumlah_siswa = serializers.IntegerField(read_only=True)
+class KelasSerializer(serializers.ModelSerializer):    
     class Meta:
         model = KelasSiswa
-        fields = ('id', 'name', 'wali_kelas', 'tahun_ajaran', 'nama_wali_kelas', 'jumlah_siswa')
+        fields = ('id', 'name', 'wali_kelas', 'tahun_ajaran')
         extra_kwargs = {
             'name': {
                 'required': True,
@@ -33,4 +30,11 @@ class KelasSiswaSerializer(serializers.ModelSerializer):
     class Meta:
         model = KelasSiswa
         fields = ('id', 'name', 'nama_wali_kelas')
+    
+class ViewKelasSerializer(serializers.ModelSerializer):
+    nama_wali_kelas = serializers.CharField(read_only=True)
+    jumlah_siswa = serializers.IntegerField(read_only=True)
+    class Meta:
+        model = KelasSiswa
+        fields = ('id', 'name', 'nama_wali_kelas', 'jumlah_siswa')
     

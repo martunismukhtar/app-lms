@@ -3,8 +3,8 @@ import { UserContext } from "../../../context/LayoutContext";
 import { API_ENDPOINTS, MESSAGES } from "../../../utils/CONSTANTA";
 import { parseApiErrors } from "../../../utils/parseApiErrors";
 import { fetchWithAuth } from "../../../services/api";
-import LoadingButton from "../../../components/LoadingButton";
 import useToast from "../../../components/Toast/useToast";
+import SubmitButton from "../../../components/Button/SubmitButton";
 
 export default function UploadQuestionTab(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +48,10 @@ export default function UploadQuestionTab(props) {
         typeof err.response === "object"
       ) {
         // Handle validation errors from API
-        showToast("Terdapat kesalahan pada form. Silakan periksa kembali.", "error");
+        showToast(
+          "Terdapat kesalahan pada form. Silakan periksa kembali.",
+          "error"
+        );
       } else {
         // Handle network or other errors
         showToast(err.message || MESSAGES.ERROR_NETWORK, "error");
@@ -118,8 +121,8 @@ export default function UploadQuestionTab(props) {
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
         </div>
-        <div className="flex justify-end">
-          <LoadingButton isLoading={isLoading} />
+        <div className="flex justify-end border-t border-gray-200 pt-4">
+          <SubmitButton isLoading={isLoading} />
         </div>
       </form>
     </div>

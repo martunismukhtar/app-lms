@@ -5,9 +5,8 @@ export const usePdfModal = () => {
   const { setOpenPDF } = useContext(UserContext);
 
   // Fungsi trigger notifikasi
-  const openPdf =  (url) => {
+  const openPdf = (url) => {
     if (!url) return;
-
     setOpenPDF(url);
   };
 

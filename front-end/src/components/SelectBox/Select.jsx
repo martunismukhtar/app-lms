@@ -5,7 +5,7 @@ const Select = ({
   name,
   onChange,
   required = false,
-  ref=null
+  ref=null,
 }) => {
   return (
     <select

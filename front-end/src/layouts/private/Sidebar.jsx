@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { UserContext } from "../../context/LayoutContext";
 import { Link } from "react-router-dom";
-import { can, isAdmin } from "../../utils/permission";
+import { can, isAdmin, isManager, isTeacher } from "../../utils/permission";
 
 const NavItem = ({
   icon,
@@ -113,7 +113,7 @@ const SidebarComponent = () => {
       label: "Kelas",
       path: "/kelas",
       icon: "👥",
-      access:can("view_kelas_siswa"),
+      access:isManager(),
     },
     {
       id: "mapel",
@@ -161,7 +161,7 @@ const SidebarComponent = () => {
       label: "Buat Ujian",
       path: "/buat-ujian",
       icon: "⚙️",
-      access: can("view_ujian"),
+      access: isTeacher(),
     },
     // {
     //   id: "ujian",

@@ -86,7 +86,7 @@ const BuatUjian = () => {
             Buat Ujian
           </Link>
         </div>
-        <hr />
+        
         <div className="p-4 space-y-6">
           <FilterUjian onFilterChange={handleFilter} refetch={refetch} />
           <div className="bg-white rounded-xl border border-gray-200 shadow overflow-hidden">

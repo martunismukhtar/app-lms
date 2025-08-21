@@ -1,4 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
 import { fetchWithAuth } from "../../services/api";
 import { API_ENDPOINTS } from "../../utils/CONSTANTA";
 
@@ -19,24 +18,4 @@ const hapusKelas = async (id) => {
   return response;
 };
 
-const fetchKelas = async () => {
-  try {
-    const url = API_ENDPOINTS.KELAS;
-    const response = await fetchWithAuth(url, { method: "GET" });
-    return response;
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    throw new Error("Failed to fetch user data");
-  }
-};
-
-const useKelas = () => {
-  return useQuery({
-    queryKey: ["kelas"],
-    queryFn: fetchKelas,    
-    ...QUERY_CONFIG,
-  });
-};
-
-export { hapusKelas, useKelas };
-
+export { hapusKelas };

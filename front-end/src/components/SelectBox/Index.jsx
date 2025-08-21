@@ -1,6 +1,13 @@
 import Select from "./Select";
 
-const SelectBox = ({ label, options, value, name, onChange, required=false, ref=null }) => {
+const SelectBox = ({ 
+  label, 
+  options, 
+  value, 
+  name, 
+  onChange, 
+  required=false, 
+  ref=null }) => {
   return (
     <div className="space-y-1">
       <label

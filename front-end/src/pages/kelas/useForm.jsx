@@ -29,9 +29,9 @@ const useKelasForm = (id) => {
       try {
         const data = await fetchKelasById(id);
         setFormData({
-          name: data.name,
-          wali_kelas: data.wali_kelas,
-          tahun_ajaran: data.tahun_ajaran,
+          name: data[0]?.name,
+          wali_kelas: data[0]?.wali_kelas,
+          tahun_ajaran: data[0]?.tahun_ajaran,
         });
       } catch (err) {
         setError(err.message);
@@ -55,9 +55,9 @@ const useKelasForm = (id) => {
     setError({});
 
     try {
-      const endpoint = API_ENDPOINTS.KELAS + (id ? `${id}/` : "");
+      const endpoint = API_ENDPOINTS.KELAS + (id ? `${id}/update` : "");
       const method = id ? "PUT" : "POST";
-
+      console.log(id);
       formData.tahun_ajaran = TahunAjaran();
       const response = await fetchWithAuth(endpoint, {
         method,

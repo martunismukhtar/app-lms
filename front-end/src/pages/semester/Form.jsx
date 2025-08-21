@@ -1,3 +1,5 @@
+import BtnKembali from "../../components/Button/BtnKembali";
+import SubmitButton from "../../components/Button/SubmitButton";
 import LoadingButton from "../../components/LoadingButton";
 import SelectBox from "../../components/SelectBox/Index";
 import useSemesterForm from "./useSemesterForm";
@@ -46,7 +48,6 @@ const FORM_FIELDS = [
     ],
   },
 ];
-
 
 // Components
 const FormField = ({ field, formData, error, onChange }) => {
@@ -112,20 +113,19 @@ const FormSemester = () => {
   }
 
   return (
-    <form method="post" onSubmit={handleSubmit} className="space-y-4">      
+    <form method="post" onSubmit={handleSubmit} className="space-y-4">
       {FORM_FIELDS.map((rowData) => (
         <FormRow
           key={rowData.row}
           rowData={rowData}
           formData={formData}
-          error={error}          
+          error={error}
           onChange={handleInputChange}
         />
       ))}
-      <hr className="border-gray-300" />
-
-      <div className="flex justify-end">
-        <LoadingButton isLoading={isLoading} />
+      <div className="flex justify-end border-t border-gray-200 pt-4">
+        <BtnKembali />
+        <SubmitButton isLoading={isLoading} />
       </div>
     </form>
   );

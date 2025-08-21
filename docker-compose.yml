@@ -38,7 +38,8 @@ services:
     build: ./api
     container_name: django_backend_lms
     # Pakai ASGI server (Uvicorn) untuk WebSocket/real-time
-    command: uvicorn eduforge.asgi:application --host 0.0.0.0 --port 8000 --workers 3
+    # command: uvicorn eduforge.asgi:application --host 0.0.0.0 --port 8000 --workers 3
+    command: python manage.py runserver 0.0.0.0:8000
     restart: unless-stopped
     volumes:
       - ./api:/app

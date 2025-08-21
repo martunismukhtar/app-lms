@@ -43,10 +43,12 @@ const ModalPDF = () => {
         <div className="p-0 flex-1 h-full overflow-auto">
           {/* Gunakan iframe untuk menampilkan file PDF */}
           {/* <PDFViewer fileUrl={pdfurl} /> */}
-          <PDFViewer 
-            fileUrl={pdfurl}
-            onLoadSuccess={(numPages) => console.log(`Loaded ${numPages} pages`)}
-            onError={(error) => console.error('PDF Error:', error)}
+          <PDFViewer
+            fileUrl={import.meta.env.VITE_SERVER + pdfurl}
+            onLoadSuccess={(numPages) =>
+              console.log(`Loaded ${numPages} pages`)
+            }
+            onError={(error) => console.error("PDF Error:", error)}
             className="my-pdf-viewer"
           />
         </div>

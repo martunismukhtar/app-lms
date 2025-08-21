@@ -27,4 +27,5 @@ urlpatterns = [
     # path('<uuid:id>/detil', views.MateriDetailView.as_view(), name='detil_materi'),
     path('<uuid:id>/delete', views.MateriDeleteAPIView.as_view(), name='delete_materi'),
     # path('jumlah', views.TotalData.as_view(), name='jumlah_materi'),
+    path('berdasarkan-mapel/<uuid:mapel>', views.MateriByMapel.as_view(), name='materi_by_mapel'),
 ]

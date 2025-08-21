@@ -8,7 +8,20 @@ function can(permission) {
 function isAdmin(){
   const user = JSON.parse(sessionStorage.getItem("session_user"));  
   return user !== null && user.roles.includes('Administrator');
-  // || user.roles.includes('Administrator'))
+}
+
+function isManager(){
+  const user = JSON.parse(sessionStorage.getItem("session_user"));  
+  return user !== null && user.roles.includes('Manager');
+}
+function isTeacher(){
+  const user = JSON.parse(sessionStorage.getItem("session_user"));  
+  return user !== null && user.roles.includes('Teacher');
+}
+
+function isStudent(){
+  const user = JSON.parse(sessionStorage.getItem("session_user"));  
+  return user !== null && user.roles.includes('Student');
 }
 
 function getItem(item) {
@@ -45,4 +58,7 @@ export {
   clearSession,
   saveSessions,
   isAdmin,
+  isManager,
+  isTeacher,
+  isStudent
 };

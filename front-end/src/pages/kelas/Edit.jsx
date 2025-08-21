@@ -16,13 +16,13 @@ const EditKelasForm = () => {
 
   return (
     <PrivateLayout>
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Edit Kelas</h1>
-        <div className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
-          <div className="overflow-x-auto overflow-y-auto m-4">
-            <FormKelas id={id} />
-          </div>
+      <div className="overflow-x-auto bg-white rounded-lg shadow p-6">
+        <div className="mb-6 py-4 border-b border-gray-100 flex justify-between items-center">
+          <h2 className="text-lg font-semibold text-gray-800">
+            Edit Data Kelas
+          </h2>
         </div>
+        <FormKelas id={id} />
       </div>
     </PrivateLayout>
   );

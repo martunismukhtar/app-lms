@@ -23,10 +23,10 @@ class GuruView(APIView):
             org = request.user.organization
             users = (
                 User.objects.filter(
-                    organization=org, 
+                    organization=org,
                     groups__name="Teacher"
                 )
-                .exclude(id=request.user.id)
+                # .exclude(id=request.user.id)
                 .values(
                     'id',
                     'username',
@@ -37,8 +37,7 @@ class GuruView(APIView):
                     'tanggal_lahir'
 
                 )
-            )
-            
+            )        
         serializer = GuruSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -77,7 +76,7 @@ class GuruView(APIView):
 
     def put(self, request, pk=None):
         try:
-            # Ambil guru 
+            # Ambil guru
             guru = User.objects.get(
                 id=pk
             )
@@ -95,8 +94,8 @@ class GuruView(APIView):
                 'email': data.get('email'),
                 'nama': data.get('nama'),
                 'jenis_kelamin': data.get('jenis_kelamin'),
-                'alamat' : data.get('alamat'),
-                'tanggal_lahir' : data.get('tanggal_lahir')        
+                'alamat': data.get('alamat'),
+                'tanggal_lahir': data.get('tanggal_lahir')
             },
             partial=True
         )
@@ -105,14 +104,13 @@ class GuruView(APIView):
             serializer.save()
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
         # Update password jika diisi
         if password:
             guru.set_password(password)
             guru.save()
 
         return Response({'data': serializer.data}, status=status.HTTP_200_OK)
-        
 
     def delete(self, request, pk=None):
         try:

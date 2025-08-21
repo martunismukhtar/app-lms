@@ -29,11 +29,8 @@ const Header = () => {
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
-        .then((data) => {
-          showToast(data.detail, "success");
-          setTimeout(() => {
-            navigate("/login");
-          }, 1000);
+        .then(() => {
+          navigate("/login");
         });
     } catch (error) {
       showToast("Terjadi kesalahan saat logout" + error.message, "error");
@@ -72,7 +69,7 @@ const Header = () => {
               </div>
               {sidebarOpen && (
                 <span className="text-sm font-medium text-slate-700 cursor-pointer">
-                  { getItem('user').username }
+                  {getItem("user").username}
                 </span>
               )}
             </button>

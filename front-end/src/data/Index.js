@@ -59,6 +59,24 @@ const fetchMateriById = async ({ queryKey }) => {
   return res;
 };
 
+const fetchMapelById = async ({ queryKey }) => {
+  
+  const [_key, mapel_id] = queryKey;
+  const res = await fetchWithAuth("mapel/by-id/" + mapel_id, {
+    method: "GET",
+  });
+  return res;
+};
+
+const fetchMateriByMapel = async ({ queryKey }) => {
+  const [_key, mapel] = queryKey;
+  const res = await fetchWithAuth("materi/berdasarkan-mapel/" + mapel, {
+    method: "GET",
+  });
+  return res;
+  //berdasarkan-mapel/<uuid:mapel>
+};
+
 const fetchProfile = async () => {
   const res = await fetchWithAuth("profile/", {
     method: "GET",
@@ -171,6 +189,38 @@ const useMateriBerdasarkanId = (id) => {
   });
 };
 
+const useMapelBerdasarkanId = (mapel_id) => {
+  return useQuery({
+    queryKey: ["ambil-mapel-berdasarkan-id", mapel_id],
+    queryFn: fetchMapelById,
+    enabled: !!mapel_id, // hanya fetch jika id tidak kosong
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 5 * 60 * 1000,
+    refetchInterval: 5 * 60 * 1000,
+    refetchIntervalInBackground: true,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+  });
+};
+
+const useMateriBerdasarkanMapel = (mapel) => {
+  return useQuery({
+    queryKey: ["materi-berdasarkan-mapel", mapel],
+    queryFn: fetchMateriByMapel,
+    enabled: !!mapel, // hanya fetch jika id tidak kosong
+    refetchOnWindowFocus: false,
+    keepPreviousData: true,
+    staleTime: 5 * 60 * 1000,
+    cacheTime: 5 * 60 * 1000,
+    refetchInterval: 5 * 60 * 1000,
+    refetchIntervalInBackground: true,
+    refetchOnMount: true,
+    refetchOnReconnect: true,
+  });
+};
+
 const useProfile = () => {
   return useQuery({
     queryKey: ["profile"],
@@ -211,4 +261,6 @@ export {
   useMateriBerdasarkanId,
   useProfile,
   useDataGuru,
+  useMapelBerdasarkanId,
+  useMateriBerdasarkanMapel
 };

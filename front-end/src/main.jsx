@@ -50,9 +50,11 @@ import Mapel from "./pages/mapel/Index.jsx";
 import TambahMapel from "./pages/mapel/Add.jsx";
 import EditMapel from "./pages/mapel/Edit.jsx";
 import Siswa from "./pages/siswa/Index.jsx";
-import SiswaFormInput from "./pages/siswa/UserFormInput.jsx";
+import FormInputSiswa from "./pages/siswa/FormInputSiswa.jsx";
 import EnrollTeacher from "./pages/mapel/EnrollTeacher.jsx";
 import SiswaPerkelas from "./pages/siswa/SiswaPerkelas.jsx";
+import ListMateri from "./pages/materi/ListMateri.jsx";
+import AddMateri from "./pages/materi/Add.jsx";
 
 const queryClient = new QueryClient();
 
@@ -73,8 +75,10 @@ const router = createBrowserRouter([
       { path: "users/create", element: <UserFormInput /> },
       // { path: "tanya-ai", element: <TanyaAI /> },
       { path: "materi", element: <Materi /> },
-      { path: "materi/create", element: <MateriForm /> },
-      { path: "materi/:id/edit", element: <EditMateriForm /> },
+      { path: "materi/:mapel_id/create", element: <AddMateri /> },
+      { path: "materi/:mapel_id/semua-materi-berdasarkan-mapel", element: <ListMateri /> },
+      { path: "materi/:mapel_id/:id/edit", element: <EditMateriForm /> },
+
       //soal
 
       //kelas
@@ -116,7 +120,7 @@ const router = createBrowserRouter([
 
       //siswa
       { path:"siswa/", element: <Siswa />},
-      { path:"siswa/create", element: <SiswaFormInput /> },
+      { path:"siswa/create", element: <FormInputSiswa /> },
       { path:"siswa/:id/kelas", element: <SiswaPerkelas /> },
       
       //hak akses

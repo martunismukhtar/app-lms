@@ -1,13 +1,13 @@
 import { useCallback, useContext, useEffect } from "react";
 import PrivateLayout from "../../layouts/private/Index";
 import { useDataGuru } from "./useData";
-import LoadingComponent from "../../components/loading/Index";
 import ErrorComponent from "../../components/error/Index";
-import ViewGuru from "./View";
 import useDeleteGuru from "./useDelete";
 import Konfirmasi from "../../components/Konfirmasi/Index";
 import { UserContext } from "../../context/LayoutContext";
 import { Link } from "react-router-dom";
+import LoadingTable from "../../components/loading/LoadingTable";
+import { ViewGuru } from "./View";
 
 const Guru = () => {
   const {
@@ -21,15 +21,10 @@ const Guru = () => {
     refetch,
   } = useDataGuru();
 
-  const {
-    actions,
-    isModalOpen,    
-    handleDelete,
-    setIsModalOpen,
-  } = useDeleteGuru();
+  const { actions, isModalOpen, handleDelete, setIsModalOpen } =
+    useDeleteGuru();
   const { setActiveMenu } = useContext(UserContext);
 
-  
   useEffect(() => {
     document.title = "Guru";
     setActiveMenu("guru");
@@ -46,11 +41,7 @@ const Guru = () => {
       ...item,
       jenis_kelamin: item.jenis_kelamin === "L" ? "Laki-laki" : "Perempuan",
     };
-  })
-
-  if (isLoading) {
-    return <LoadingComponent />;
-  }
+  });
 
   if (isError) {
     return <ErrorComponent error={error} handleRetry={refetch} />;
@@ -58,7 +49,7 @@ const Guru = () => {
 
   return (
     <PrivateLayout>
-      <div className="overflow-x-auto bg-white rounded-lg shadow p-6">
+      <div className="overflow-x-auto bg-white rounded-lg shadow p-2">
         <div className="p-4 border-b border-gray-100 flex justify-between items-center">
           <h2 className="text-lg font-semibold text-gray-800">Daftar Guru</h2>
           <Link
@@ -81,7 +72,8 @@ const Guru = () => {
             Tambah
           </Link>
         </div>
-        <hr />        
+
+        {isLoading && <LoadingTable />}
         <ViewGuru
           data={new_data}
           actions={actions}

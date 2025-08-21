@@ -1,10 +1,10 @@
-import PrivateLayout from "../../layouts/private/Index";
 import { useContext, useEffect } from "react";
-import { UserContext } from "../../context/LayoutContext";
+import PrivateLayout from "../../layouts/private/Index";
 import MateriForm from "./Form";
+import { UserContext } from "../../context/LayoutContext";
 
 // Main Component
-const EditMateriForm = () => {  
+const AddMateri = () => {
   const { setActiveMenu } = useContext(UserContext);
 
   useEffect(() => {
@@ -23,4 +23,4 @@ const EditMateriForm = () => {
   );
 };
 
-export default EditMateriForm;
+export default AddMateri;

@@ -1,12 +1,14 @@
-import { Brain, EyeOff, Lock, ArrowLeft, User } from "lucide-react";
+import { Brain, Eye, EyeOff, Lock, ArrowLeft, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import Input from "../../components/Input/InputIcon";
 import Button from "../../components/Button/Index";
 import GoogleLoginButton from "./GoogleLoginButton";
 import UseRegister from "./UseRegister";
+import { useState } from "react";
 
 export default function RegisterPage() {
   const { handleSubmit, loading } = UseRegister();
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <>
@@ -72,17 +74,22 @@ export default function RegisterPage() {
                   </div>
                   <Input
                     label="Password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     placeholder="Password"
                     required
                   />
 
                   <button
+                    onClick={() => setShowPassword(!showPassword)}
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                    className="absolute cursor-pointer inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
                   >
-                    <EyeOff className="h-5 w-5" />
+                    {showPassword ? (
+                      <Eye className="h-5 w-5" />
+                    ) : (
+                      <EyeOff className="h-5 w-5" />
+                    )}
                   </button>
                 </div>
               </div>
@@ -97,17 +104,22 @@ export default function RegisterPage() {
                   </div>
                   <Input
                     label="Konfirmasi Password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="konfirmasi_password"
                     placeholder="Konfirmasi Password"
                     required
                   />
 
                   <button
+                    onClick={() => setShowPassword(!showPassword)}
                     type="button"
-                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
+                    className="absolute cursor-pointer inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700 transition-colors"
                   >
-                    <EyeOff className="h-5 w-5" />
+                    {showPassword ? (
+                      <Eye className="h-5 w-5" />
+                    ) : (
+                      <EyeOff className="h-5 w-5" />
+                    )}
                   </button>
                 </div>
               </div>

@@ -14,13 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
-from .views import KelasView
-from rest_framework.routers import DefaultRouter
-
-router = DefaultRouter()
-router.register(r'', KelasView, basename='kelas')
+from django.urls import path
+from .views import KelasSiswaView
 
 urlpatterns = [
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
+    path('', KelasSiswaView.as_view(), name='kelas'),
+    # path('list/', views.MapelList.as_view(), name='dropdown_mapel'),
+    path('<int:id>', KelasSiswaView.as_view(), name='edit-kelas'),
+    path('<int:id>/update', KelasSiswaView.as_view(), name='update-kelas'),
+    path('<int:id>/delete', KelasSiswaView.as_view(), name='delete-kelas'),
 ]

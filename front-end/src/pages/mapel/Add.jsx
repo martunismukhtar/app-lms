@@ -7,19 +7,19 @@ const TambahMapel = () => {
   const { setActiveMenu } = useContext(UserContext);
 
   useEffect(() => {
-      document.title = "Mapel";
-      setActiveMenu("mapel");
-    }, [setActiveMenu]);
+    document.title = "Mapel";
+    setActiveMenu("mapel");
+  }, [setActiveMenu]);
 
   return (
     <PrivateLayout>
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Tambah Mapel</h1>
-        <div className="bg-white shadow-md rounded-lg overflow-hidden border border-gray-200">
-          <div className="overflow-x-auto overflow-y-auto m-4">
-            <FormMapel />
-          </div>
+      <div className="overflow-x-auto bg-white rounded-lg shadow p-6">
+        <div className="mb-6 py-4 border-b border-gray-100 flex justify-between items-center">
+          <h2 className="text-lg font-semibold text-gray-800">
+            Tambah Data Mata Pelajaran
+          </h2>
         </div>
+        <FormMapel />
       </div>
     </PrivateLayout>
   );

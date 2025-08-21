@@ -29,7 +29,7 @@ const useDeleteMapel = () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEY });
 
       showToast(
-        `Data dengan ID ${itemToDelete.ID} berhasil dihapus`,
+        `Data dengan ID ${itemToDelete.id} berhasil dihapus`,
         "success"
       );
     } catch (error) {
@@ -56,6 +56,7 @@ const useDeleteMapel = () => {
     isModalOpen,    
     handleDelete,
     setIsModalOpen,
+    handleOpenDelete
   };
 };
 

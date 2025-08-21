@@ -18,7 +18,7 @@ const Input = ({
       onChange={onChange}
       placeholder={placeholder}
       readOnly={readOnly}
-      className={`block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400 transition-all ${
+      className={`block w-full pl-3 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900 placeholder-gray-400 transition-all ${
         error
           ? "border-red-500 focus:ring-red-300"
           : "border-gray-300 focus:ring-indigo-500"

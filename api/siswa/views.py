@@ -15,9 +15,9 @@ from kelas_siswa.models import KelasSiswa
 from rest_framework.pagination import CursorPagination
 import datetime
 from siswa.serializers import SiswaPerKelasSerializer
-from django.db.models import F
+from django.db.models import F, Value, Q
 from django.contrib.postgres.aggregates import ArrayAgg
-
+from django.db.models.functions import Coalesce
 # Create your views here.
 
 
@@ -206,24 +206,15 @@ class SiswaPerKelas(APIView):
             SiswaKelas.objects.filter(kelas_id=kelas)
             .select_related('user')
             .order_by('kelas_id')
-            .values(
-                siswa_id=F('user__id'),
-                username=F('user__username'),
-                nama=F('user__nama'),
-            )
-        )
-
-        # if search:
-        #     kelas_siswa = kelas_siswa.filter(nama__icontains=search)
-
-        ss = (
-            SiswaKelas.objects.filter(kelas_id=kelas)
-            .select_related('user')
-            .order_by('kelas_id')
             .annotate(
-                mapel=ArrayAgg(
-                    'user__siswa_mapel__mapel__nama', distinct=True
-                )
+                mapel=Coalesce(
+            ArrayAgg(
+                'user__siswa_mapel__mapel__nama',
+                distinct=True,
+                filter=~Q(user__siswa_mapel__mapel__nama=None)  # buang NULL
+            ),
+            Value([])  # kalau kosong jadi []
+        )
             )
             .values(
                 siswa_id=F('user__id'),
@@ -231,11 +222,12 @@ class SiswaPerKelas(APIView):
                 nama=F('user__nama'),
                 mapel=F('mapel')
             )
-
         )
 
-        print(ss.query)
-        serializer = SiswaPerKelasSerializer(ss, many=True)
+        if search:
+            kelas_siswa = kelas_siswa.filter(nama__icontains=search)
+
+        serializer = SiswaPerKelasSerializer(kelas_siswa, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -258,7 +250,7 @@ class SiswaEnrollMp(APIView):
 
         with transaction.atomic():
             SiswaMapel.objects.bulk_create(
-                data, batch_size=500, ignore_conflicts=True)        
+                data, batch_size=500, ignore_conflicts=True)
 
         return Response({"message": 'Mata kuliah berhasil didaftarkan'},
                         status=status.HTTP_200_OK)

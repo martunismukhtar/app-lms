@@ -34,8 +34,7 @@ const DaftarMateri = () => {
   }
 
   const bukaMateri = (url) => {
-    let newUrl = `${import.meta.env.VITE_SERVER}${url.file}`;
-    openPdf(newUrl);
+    openPdf(url);
   };
 
   return (
@@ -59,7 +58,7 @@ const DaftarMateri = () => {
                 <p className="mt-2 text-sm text-gray-600">{item.content}</p>
                 <div className="mt-4 flex justify-between">
                   <button
-                    onClick={() => bukaMateri(item)}
+                    onClick={() => bukaMateri(item.file)}
                     className="cursor-pointer text-sm text-blue-500 hover:underline"
                   >
                     Lihat Selengkapnya →

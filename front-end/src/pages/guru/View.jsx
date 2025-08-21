@@ -1,6 +1,6 @@
 import Tabel from "../../components/DataTable/Index";
 
-const ViewGuru = ({
+export const ViewGuru = ({
   data = [],
   actions = [],
   loadMore,
@@ -8,17 +8,15 @@ const ViewGuru = ({
   isLoadingMore = false,
 }) => {
   return (
-    <div className="p-2">
-      <div className="overflow-x-auto max-h-[700px] overflow-y-auto m-2">
-        <Tabel
-          data={data}
-          actions={actions}
-          onLoadMore={loadMore}
-          hasMore={hasMore}
-        />
-        {isLoadingMore && <LoadingSpinner size="small" className="py-2" />}
-      </div>
+    <div className="overflow-x-auto h-[700px] overflow-y-auto m-2">
+      <Tabel
+        data={data}
+        actions={actions}
+        onLoadMore={loadMore}
+        hasMore={hasMore}
+      />
+      {isLoadingMore && <LoadingSpinner size="small" className="py-2" />}
     </div>
   );
 };
-export default ViewGuru;
+// export default ViewGuru;

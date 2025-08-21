@@ -1,8 +1,8 @@
+import BtnKembali from "../../components/Button/BtnKembali";
+import SubmitButton from "../../components/Button/SubmitButton";
 import Input from "../../components/Input/Index";
-import LoadingButton from "../../components/LoadingButton";
 import RadioButton from "../../components/RadioButton/Index";
 import TextArea from "../../components/Textarea/Index";
-
 import useForm from "./useForm";
 
 const FormGuru = ({ id, data }) => {
@@ -12,7 +12,7 @@ const FormGuru = ({ id, data }) => {
   );
 
   return (
-    <form method="post" onSubmit={handleSubmit} className="space-y-4">        
+    <form method="post" onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="w-full">
           <Input
@@ -94,8 +94,9 @@ const FormGuru = ({ id, data }) => {
           />
         </div>
       </div>
-      <div className="flex justify-end">
-        <LoadingButton isLoading={isLoading} />
+      <div className="flex justify-end border-t border-gray-200 pt-4">
+        <BtnKembali />
+        <SubmitButton isLoading={isLoading} />
       </div>
     </form>
   );

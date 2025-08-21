@@ -57,16 +57,17 @@ const Tabel = ({ data = [], actions = [], onLoadMore, hasMore }) => {
       </svg>
     </button>
   );
-  
-  if (!data || data.length === 0) return <p className="p-4">Tidak ada data</p>;
+
+  // if (!data || data.length === 0) return <p className="p-4">Tidak ada data</p>;
 
   return (
     <div
       ref={containerRef}
-      className="h-96 overflow-x-auto overflow-y-auto rounded-lg shadow border border-gray-300"
+      className="h-full overflow-auto rounded-lg shadow border border-gray-300"
     >
-      <table className="min-w-full">
-        <thead className="bg-gray-100 sticky top-0 z-10">
+      {/* Desktop View */}
+      <table className="hidden md:table w-full table-auto text-sm md:text-base">
+        <thead className="bg-gray-100 sticky top-0 z-10 shadow-sm">
           <tr>
             <th className="px-4 py-2 text-left font-medium">No</th>
             {headers.map((key) => (
@@ -81,17 +82,25 @@ const Tabel = ({ data = [], actions = [], onLoadMore, hasMore }) => {
         </thead>
         <tbody>
           {data.map((row, rowIndex) => (
-            <tr key={row.id || rowIndex} className=" hover:bg-blue-50 transition-colors duration-150">
-              <td className="px-6 py-4 font-medium text-gray-900 border-b border-gray-200">{rowIndex + 1}</td>
+            <tr
+              key={row.id || rowIndex}
+              className="hover:bg-blue-50 transition-colors duration-150"
+            >
+              <td className="px-6 py-4 font-medium text-gray-900 border-b border-gray-200">
+                {rowIndex + 1}
+              </td>
               {headers.map((key) => (
-                <td key={key} className="px-6 py-4 font-medium text-gray-900 border-b border-gray-200">
+                <td
+                  key={key}
+                  className="px-6 py-4 text-gray-900 border-b border-gray-200"
+                >
                   {key.toLowerCase() === "file" && row[key]
                     ? renderFileCell(row[key])
                     : row[key]}
                 </td>
               ))}
               {actions.length > 0 && (
-                <td className="px-6 py-4 space-x-2 flex justify-center border-b border-gray-200">
+                <td className="px-6 py-4 flex flex-wrap justify-center gap-2 border-b border-gray-200">
                   {actions.map((action, actionIndex) => (
                     <ButtonAksi
                       key={actionIndex}
@@ -112,6 +121,49 @@ const Tabel = ({ data = [], actions = [], onLoadMore, hasMore }) => {
           ))}
         </tbody>
       </table>
+
+      {/* Mobile View (Card) */}
+      <div className="md:hidden space-y-4 p-2">
+        {data.map((row, rowIndex) => (
+          <div
+            key={row.id || rowIndex}
+            className="bg-white rounded-lg shadow border border-gray-200 p-4 space-y-2"
+          >
+            <div className="font-semibold text-gray-700">#{rowIndex + 1}</div>
+            {headers.map((key) => (
+              <div key={key} className="flex justify-between text-sm">
+                <span className="font-medium text-gray-500">
+                  {key.toUpperCase()}
+                </span>
+                <span className="text-gray-900">
+                  {key.toLowerCase() === "file" && row[key]
+                    ? renderFileCell(row[key])
+                    : row[key]}
+                </span>
+              </div>
+            ))}
+            {actions.length > 0 && (
+              <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-200">
+                {actions.map((action, actionIndex) => (
+                  <ButtonAksi
+                    key={actionIndex}
+                    label={action.label}
+                    className={`cursor-pointer px-3 py-1 text-xs rounded ${
+                      action.className ||
+                      "bg-blue-500 text-white hover:bg-blue-600"
+                    }`}
+                    onClick={() => action.onClick(row)}
+                    icon={action.icon}
+                  >
+                    {action.label}
+                  </ButtonAksi>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
       {hasMore && (
         <div className="text-center py-4 text-gray-500 text-sm">
           Memuat data...

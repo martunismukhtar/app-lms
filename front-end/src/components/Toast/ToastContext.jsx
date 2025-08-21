@@ -6,7 +6,7 @@ const ToastContext = createContext();
 const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
 
-  const showToast = useCallback((message, type = "success", duration = 3000) => {
+  const showToast = useCallback((message, type = "success", duration = 2500) => {
     const id = Date.now();
     const toast = { id, message, type, duration };
     setToasts((prev) => [...prev, toast]);

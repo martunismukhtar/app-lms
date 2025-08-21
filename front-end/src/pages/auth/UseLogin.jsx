@@ -40,22 +40,17 @@ const UseLogin = () => {
           permissions: data.permissions,
           user: data.user,
         });
-        showToast(
-          `Login berhasil: ${data?.user?.email || "Pengguna"}`,
-          "success"
-        );
-        
-        setTimeout(() => {
-          navigate(data.organization ? "/dashboard" : "/organisasi");
-        }, 3000);
-      } else {
-        console.error("Login error:", res);
+        navigate(data.organization ? "/dashboard" : "/organisasi");
+        // setTimeout(() => {
+        //   navigate(data.organization ? "/dashboard" : "/organisasi");
+        // }, 3000);
+      } else {        
         showToast(res?.error || "Anda tidak terdafar", "error");
       }
     } catch (error) {
       showToast(error?.message || "Terjadi kesalahan jaringan.", "error");
     } finally {
-      setLoading(false);
+      setLoading(false);       
     }
   };
 

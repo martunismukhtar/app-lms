@@ -48,7 +48,7 @@ const SiswaPerkelas = () => {
         <div className="p-4 border-b border-gray-100 flex justify-between items-center">
           <h2 className="text-lg font-semibold text-gray-800">Daftar Siswa</h2>
         </div>
-        <hr />
+       
         <div className="p-4 space-y-6">
           <FilterSiswa onFilterChange={handleFilter} refetch={refetch} />
           <div className="flex justify-end">

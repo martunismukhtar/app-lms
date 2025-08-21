@@ -1,6 +1,6 @@
+import BtnKembali from "../../components/Button/BtnKembali";
+import SubmitButton from "../../components/Button/SubmitButton";
 import Input from "../../components/Input/Index";
-import LoadingButton from "../../components/LoadingButton";
-
 import useForm from "./useForm";
 
 const FormMapel = ({ id, data }) => {
@@ -51,8 +51,9 @@ const FormMapel = ({ id, data }) => {
           />
         </div>
       </div>
-      <div className="flex justify-end">
-        <LoadingButton isLoading={isLoading} />
+      <div className="flex justify-end border-t border-gray-200 pt-4">
+        <BtnKembali />
+        <SubmitButton isLoading={isLoading} />
       </div>
     </form>
   );
