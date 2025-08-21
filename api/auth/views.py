@@ -1,9 +1,8 @@
 from users.models import User
 from django.db.models import Q
-from django.contrib.auth.hashers import make_password
 from django.conf import settings
 from rest_framework import status
-from rest_framework.views import APIView, View
+from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
 from django.http import JsonResponse
@@ -14,13 +13,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import Group
 from organization.serializers import OrganizationSerializer
-from django.core.exceptions import ObjectDoesNotExist
-from permissions.models import CustomPermission
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
-from django.core.mail import EmailMultiAlternatives
-from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode
 from django.utils import timezone
 from core.tasks import send_email
@@ -30,9 +25,7 @@ CLIENT_ID = settings.GOOGLE_CLIENT_ID
 def send_verification_email(user, uid, token):
     url = settings.APP_URL
     verify_link = f"{url}auth/verify?uid={uid}&token={token}"
-
-    send_email.delay(user.username, user.email, verify_link)
-    
+    send_email.delay(user.username, user.email, verify_link)    
 
 class GoogleLogin(APIView):
     permission_classes = [AllowAny]
@@ -103,6 +96,10 @@ class LoginView(APIView):
         user = User.objects.filter(username=username).first()
 
         if user is not None and user.check_password(password):
+
+            if not user.is_active:
+                return Response({"message": "User belum aktif"}, status=status.HTTP_401_UNAUTHORIZED)
+
             refresh = RefreshToken.for_user(user)
             permission_codes = list(
                 user.get_custom_permissions().values_list('code', flat=True))
@@ -124,7 +121,7 @@ class LoginView(APIView):
                 "permissions": permission_codes
             })
 
-        return Response({"error": "Username atau password salah"}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"message": "Username atau password salah"}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LogoutView(APIView):
@@ -132,18 +129,17 @@ class LogoutView(APIView):
 
     def post(self, request):
         try:
-            refresh_token = request.data.get("refresh")
-            print(refresh_token)
+            refresh_token = request.data.get("refresh")            
             token = RefreshToken(refresh_token)
             token.blacklist()  # blacklist refresh token agar tidak bisa dipakai lagi
             return Response({
-                "detail": "Logout berhasil"
+                "message": "Logout berhasil"
             },
                 status=status.HTTP_200_OK
             )
         except Exception as e:
             print(e)
-            return Response({"error": "Token tidak valid atau sudah expired"},
+            return Response({"message": "Token tidak valid atau sudah expired"},
                             status=status.HTTP_400_BAD_REQUEST)
 # Create your views here.
 
@@ -171,7 +167,7 @@ class RegisterView(APIView):
 
             send_verification_email(user, uid, token)
 
-            return Response({"message": "User berhasil dibuat"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "User berhasil dibuat, silahkan cek email anda untuk verifikasi email"}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 

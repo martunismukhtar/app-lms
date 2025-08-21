@@ -7,7 +7,8 @@ import UseRegister from "./UseRegister";
 import { useState } from "react";
 
 export default function RegisterPage() {
-  const { handleSubmit, loading } = UseRegister();
+  const { handleSubmit, loading, form,
+    handleChange } = UseRegister();
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -42,7 +43,9 @@ export default function RegisterPage() {
                   id="username"
                   placeholder="Masukkan username"
                   required
+                  onChange={handleChange}
                   name="username"
+                  value={form.username}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
                 />
               </div>
@@ -58,6 +61,8 @@ export default function RegisterPage() {
                   type="email"
                   id="email"
                   name="email"
+                  onChange={handleChange}
+                  value={form.email}
                   placeholder="contoh@email.com"
                   required
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
@@ -76,6 +81,8 @@ export default function RegisterPage() {
                     label="Password"
                     type={showPassword ? "text" : "password"}
                     name="password"
+                    onChange={handleChange}
+                    value={form.password}
                     placeholder="Password"
                     required
                   />
@@ -106,7 +113,9 @@ export default function RegisterPage() {
                     label="Konfirmasi Password"
                     type={showPassword ? "text" : "password"}
                     name="konfirmasi_password"
+                    onChange={handleChange}
                     placeholder="Konfirmasi Password"
+                    value={form.konfirmasi_password}
                     required
                   />
 

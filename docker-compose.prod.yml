@@ -1,0 +1,103 @@
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db_lms
+    restart: unless-stopped
+    env_file:
+      - ./api/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - lms_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_broker_lms
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-appuser}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-apppass}
+    networks:
+      - lms_network
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics check_running"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./api
+    container_name: django_backend_lms
+    command: uvicorn eduforge.asgi:application --host 0.0.0.0 --port 8000 --workers 4
+    restart: unless-stopped
+    volumes:
+      - ./api:/app
+    env_file:
+      - ./api/.env
+    depends_on:
+      db:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    expose:
+      - "8000"   # hanya internal, Apache reverse proxy yg akses
+    networks:
+      - lms_network
+
+  celery:
+    build: ./api
+    container_name: celery_worker
+    command: celery -A eduforge worker -l info
+    restart: unless-stopped
+    volumes:
+      - ./api:/app
+    env_file:
+      - ./api/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    networks:
+      - lms_network
+
+  celery-beat:
+    build: ./api
+    container_name: celery_beat
+    command: celery -A eduforge beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    restart: unless-stopped
+    volumes:
+      - ./api:/app
+    env_file:
+      - ./api/.env
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+    networks:
+      - lms_network
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile.prod
+    container_name: react_frontend_lms
+    restart: unless-stopped
+    networks:
+      - lms_network
+    expose:
+      - "80"   # Apache yg ambil file build ini
+
+volumes:
+  postgres_data:
+
+networks:
+  lms_network:
+    driver: bridge

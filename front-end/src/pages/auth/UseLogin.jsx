@@ -42,7 +42,7 @@ const UseLogin = () => {
         });
         navigate(data.organization ? "/dashboard" : "/organisasi");      
       } else {        
-        showToast(res?.error || "Anda tidak terdafar", "error");
+        showToast(res?.message || "Anda tidak terdafar", "error");
       }
     } catch (error) {
       showToast(error?.message || "Terjadi kesalahan jaringan.", "error");

@@ -1,0 +1,13 @@
+# Tahap 1: build React
+FROM node:20 AS build
+WORKDIR /app
+
+# Copy package.json dan install dependency
+COPY package*.json ./
+RUN npm install
+
+# Copy semua source code dan build
+COPY . .
+RUN npm run build
+
+# Tidak ada tahap webserver, karena Apache yg serve

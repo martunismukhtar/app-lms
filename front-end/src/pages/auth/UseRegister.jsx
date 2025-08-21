@@ -6,7 +6,20 @@ const UseRegister = () => {
   const { showToast } = useToast();
 
   const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+    email: "",
+    konfirmasi_password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,8 +51,13 @@ const UseRegister = () => {
       });
 
       const data = await res.json();
-      console.log(res);
       if (res.ok) {
+        setForm({
+          username: "",
+          password: "",
+          email: "",
+          konfirmasi_password: "",
+        })
         saveSessions({
           access: data.access,
           refresh: data.refresh,
@@ -61,6 +79,8 @@ const UseRegister = () => {
   return {
     handleSubmit,
     loading,
+    form,
+    handleChange
   };
 };
 

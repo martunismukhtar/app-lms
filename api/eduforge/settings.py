@@ -127,11 +127,6 @@ ROOT_URLCONF = 'eduforge.urls'
 # settings.py
 
 # Redis sebagai broker
-# settings.py
-
-# CELERY_BROKER_URL = 'amqp://celeryuser:celerypassword@localhost//'  # Jika pakai user custom
-# atau jika tidak pakai auth:
-# CELERY_BROKER_URL = 'amqp://guest:guest@localhost//'
 
 # CELERY_RESULT_BACKEND = 'rpc://'  # Atau gunakan DB jika perlu
 CELERY_ACCEPT_CONTENT = ['json']
